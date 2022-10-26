@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecom.Server", "Ecom\Server\Ecom.Server.csproj", "{4F10F368-F04A-48B8-AA29-0211298205D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecom.Server", "Ecom\Server\Ecom.Server.csproj", "{4F10F368-F04A-48B8-AA29-0211298205D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecom.Client", "Ecom\Client\Ecom.Client.csproj", "{BC8AC683-1BC5-423D-8DC8-80EF2D3BDB85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecom.Client", "Ecom\Client\Ecom.Client.csproj", "{BC8AC683-1BC5-423D-8DC8-80EF2D3BDB85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecom.Shared", "Ecom\Shared\Ecom.Shared.csproj", "{4B96406A-839C-46B7-970B-C2407A8FEB72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecom.Shared", "Ecom\Shared\Ecom.Shared.csproj", "{4B96406A-839C-46B7-970B-C2407A8FEB72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
