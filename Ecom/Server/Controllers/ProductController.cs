@@ -28,5 +28,11 @@ namespace Ecom.Server.Controllers
             return Ok(products);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse<Product>>> GetProductAsync(int id)
+        {
+            var product = await _productService.GetProductAsync(id);
+            return Ok(product);
+        }
     }
 }

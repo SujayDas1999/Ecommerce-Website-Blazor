@@ -28,5 +28,16 @@ namespace Ecom.Server.Services
 
             return response;
         }
+
+        public async Task<ServiceResponse<Product>> GetProductAsync(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            var response = new ServiceResponse<Product>();
+
+            if (product == null) return response = new ServiceResponse<Product> { Success = false, Message = $"No Product Found with Id={id}", Status = 404 };
+
+            return response = new ServiceResponse<Product> { Success = true, Data=product, Message = $"Product Found with Id={id}", Status = 200 };
+
+        }
     }
 }

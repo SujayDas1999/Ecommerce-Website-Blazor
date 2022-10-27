@@ -6,5 +6,6 @@ namespace Ecom.Client.Services.ProductService
     {
         List<Product> Products { get; set; }
         Task<List<Product>> GetProducts();
+        Task<Product> GetProductById(int id);
     }
 }
