@@ -13,5 +13,7 @@ namespace Ecom.Shared
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
+        public Category? Category { get; set; } 
+        public int CategoryId { get; set; }
     }
 }
