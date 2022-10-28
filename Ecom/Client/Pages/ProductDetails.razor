@@ -16,10 +16,26 @@ else
             
                 <h2 class="mb-0">@product.Title</h2>
                 
-                <p>@product.Description</p>
-                    <h4 class="price">
-                        $@product.Price
-                    </h4>
+        <p>@product.Description</p>
+        @if(@product.Variants != null && @product.Variants.Count() > 1)
+            {
+                <div class="mb-3 width:200px">
+                    <select class="form-select" @bind="currentTypeId">
+                        @foreach (var item in @product.Variants)
+                       {
+                           <option value="@item.ProductTypeId">@item.ProductType.Name</option>
+                       }
+                    </select>
+                </div>
+            }
+            @if(GetSelectedVariant() != null)
+               {
+                @if(GetSelectedVariant().OriginalPrice > GetSelectedVariant().Price)
+                {
+                    <h6 class="text-muted original-price">$@GetSelectedVariant().OriginalPrice</h6>
+                }
+                <h4>$@GetSelectedVariant().Price</h4>
+            }
         </div>
     </div>
 }
@@ -27,6 +43,7 @@ else
 @code {
     private Product? product = null;
     private string message;
+    private int currentTypeId = 1;
 
     [Parameter]
     public int Id { get; set; }
@@ -34,6 +51,15 @@ else
     protected override async Task OnParametersSetAsync()
     {
         product = await ProductService.GetProductById(Id); 
+        if(product.Variants.Count() > 0)
+        {
+            currentTypeId = product.Variants[0].ProductTypeId;
+        }
+    }
 
+    private ProductVariant GetSelectedVariant()
+    {
+        var variant = product?.Variants.FirstOrDefault(p => p.ProductTypeId == currentTypeId);
+        return variant!;
     }
 }

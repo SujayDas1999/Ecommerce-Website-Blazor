@@ -16,7 +16,11 @@ namespace Ecom.Server.Services
 
         public async Task<ServiceResponse<List<Product>>> GetAllProductsAsync()
         {
-            var products = await _context.Products.Include(c => c.Category).ToListAsync();
+            var products = await _context.Products
+                .Include(c => c.Category)
+                .Include(p => p.Variants)
+                .ThenInclude(v => v.ProductType)
+                .ToListAsync();
 
             var response = new ServiceResponse<List<Product>>
             {
@@ -31,18 +35,38 @@ namespace Ecom.Server.Services
 
         public async Task<ServiceResponse<Product>> GetProductAsync(int id)
         {
-            var product = await _context.Products.Include(c => c.Category).SingleOrDefaultAsync(x => x.Id == id);
+            var product = await _context.Products
+                .Include(c => c.Category)
+                .Include(p => p.Variants)
+                .ThenInclude(p => p.ProductType)
+                .SingleOrDefaultAsync(x => x.Id == id);
             var response = new ServiceResponse<Product>();
 
-            if (product == null) return response = new ServiceResponse<Product> { Success = false, Message = $"No Product Found with Id={id}", Status = 404 };
+            if (product == null) return response = new ServiceResponse<Product> 
+            { 
+                Success = false, 
+                Message = $"No Product Found with Id={id}", 
+                Status = 404 
+            };
 
-            return response = new ServiceResponse<Product> { Success = true, Data=product, Message = $"Product Found with Id={id}", Status = 200 };
+            return response = new ServiceResponse<Product> 
+            { Success = true, 
+                Data=product, 
+                Message = $"Product Found with Id={id}", 
+                Status = 200 
+            };
 
         }
 
         public async Task<ServiceResponse<List<Product>>> GetProductsByCategoryAsync(string categoryName)
         {
-            var products = await _context.Products.Include(c=> c.Category).Where(c => c.Category.Url == categoryName.ToLower()).ToListAsync();
+            var products = await _context.Products
+                .Include(c=> c.Category)
+                .Include(p => p.Variants)
+                .ThenInclude(p => p.ProductType)
+                .Where(c => c.Category.Url == categoryName.ToLower())
+                .ToListAsync();
+
             var response = new ServiceResponse<List<Product>>();
 
             if(products.Count() == 0 || products == null)

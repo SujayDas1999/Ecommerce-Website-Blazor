@@ -22,7 +22,7 @@ else
                 </a>
                 <p>@product.Description</p>
                     <h5 class="price">
-                        $@product.Price
+                        @GetPriceText(product)
                     </h5>
             </div>
         </li>
@@ -37,6 +37,7 @@ else
 @code {
 
 
+
     protected override void OnInitialized()
     {
         ProductService.ProductsChanged += StateHasChanged;
@@ -45,5 +46,20 @@ else
     public void Dispose()
     {
         ProductService.ProductsChanged -= StateHasChanged;
+    }
+
+    private string GetPriceText(Product product)
+    {
+        var variants = product.Variants;
+        if(variants.Count() == 0)
+        {
+            return "";
+        }
+        if(variants.Count() == 1)
+        {
+            return $"${variants[0].Price}";
+        }
+        decimal minPrice = variants.Min(x => x.Price);
+        return $"Starting at ${minPrice}";
     }
 }
