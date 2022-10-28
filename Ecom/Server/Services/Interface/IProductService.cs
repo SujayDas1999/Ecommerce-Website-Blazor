@@ -6,5 +6,6 @@ namespace Ecom.Server.Services.Interface
     {
         Task<ServiceResponse<List<Product>>> GetAllProductsAsync();
         Task<ServiceResponse<Product>> GetProductAsync(int id);
+        Task<ServiceResponse<List<Product>>> GetProductsByCategoryAsync(string categoryName);
     }
 }

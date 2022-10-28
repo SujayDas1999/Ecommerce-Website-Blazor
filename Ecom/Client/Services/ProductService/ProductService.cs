@@ -9,16 +9,23 @@ namespace Ecom.Client.Services.ProductService
 
         private readonly HttpClient _http;
 
+        public event Action ProductsChanged;
+
         public ProductService(HttpClient http)
         {
             _http = http;
         }
 
 
-        public async Task<List<Product>> GetProducts()
+        public async Task GetProducts(string? category = null)
         {
-            var results = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product");
-            return results.Data;
+            var response = new ServiceResponse<List<Product>>();
+            response = category == null ? await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product") : await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/Product/Category/{category}");
+           
+            if(response != null && response.Data != null) Products = response.Data;
+
+            ProductsChanged.Invoke();
+
         }
 
         public async Task<Product> GetProductById(int id)
