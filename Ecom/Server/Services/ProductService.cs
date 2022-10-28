@@ -16,7 +16,7 @@ namespace Ecom.Server.Services
 
         public async Task<ServiceResponse<List<Product>>> GetAllProductsAsync()
         {
-            var products = await _context.Products.ToListAsync();
+            var products = await _context.Products.Include(c => c.Category).ToListAsync();
 
             var response = new ServiceResponse<List<Product>>
             {
@@ -31,7 +31,7 @@ namespace Ecom.Server.Services
 
         public async Task<ServiceResponse<Product>> GetProductAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.Include(c => c.Category).SingleOrDefaultAsync(x => x.Id == id);
             var response = new ServiceResponse<Product>();
 
             if (product == null) return response = new ServiceResponse<Product> { Success = false, Message = $"No Product Found with Id={id}", Status = 404 };
