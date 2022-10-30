@@ -34,7 +34,8 @@ namespace Ecom.Server.Data
                 Title = "The Hitchhiker's Guide to the Galaxy",
                 Description = "The Hitchhiker's Guide to the Galaxy (sometimes referred to as HG2G,HHGTTG, H2G2, or tHGttG) is a comedy science fiction franchise created by Douglas Adams. Originally a 1978 radio comedy broadcast on BBC Radio 4, it was later adapted to other formats, including stage shows, novels, comic books, a 1981 TV series, a 1984 text-based computer game, and 2005 feature film.",
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/en/b/bd/H2G2_UK_front_cover.jpg",
-                CategoryId = 1
+                CategoryId = 1,
+                IsFeatured = true,
             },
                     new Product
                     {
@@ -50,7 +51,9 @@ namespace Ecom.Server.Data
                         Title = "Nineteen Eighty-Four",
                         Description = "Nineteen Eighty-Four (also stylised as 1984) is a dystopian social science fiction novel and cautionary tale written by English writer George Orwell. It was published on 8 June 1949 by Secker & Warburg as Orwell's ninth and final book completed in his lifetime. Thematically, it centres on the consequences of totalitarianism, mass surveillance and repressive regimentation of people and behaviours within society. Orwell, a democratic socialist, modelled the totalitarian government in the novel after Stalinist Russia and Nazi Germany. More broadly, the novel examines the role of truth and facts within politics and the ways in which they are manipulated.",
                         ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/c/c3/1984first.jpg",
-                        CategoryId = 1
+                        CategoryId = 1,
+                        IsFeatured = true,
+
                     },
                     new Product
                     {
@@ -117,6 +120,7 @@ namespace Ecom.Server.Data
                         Title = "Super Nintendo Entertainment System",
                         Description = "The Super Nintendo Entertainment System (SNES), also known as the Super NES or Super Nintendo, is a 16-bit home video game console developed by Nintendo that was released in 1990 in Japan and South Korea.",
                         ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/e/ee/Nintendo-Super-Famicom-Set-FL.jpg",
+                        IsFeatured = true,
                     }
 
            );

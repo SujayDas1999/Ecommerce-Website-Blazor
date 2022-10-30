@@ -3,7 +3,7 @@
 
 @if(ProductService.Products == null)
 {
-    <h1>Loading ...</h1>
+   <span>@ProductService.Message</span> 
 }
 else
 {
@@ -29,6 +29,11 @@ else
     }
 </ul>
     
+
+@for(var i = 1; i<=ProductService.PageCount; i++)
+    {
+        <a class="btn @(i == ProductService.CurrentPage ? "btn-info":"btn-outline-info") page-selection" href="/search/@ProductService.LastSearchText/@i">@i</a>
+    }
 
 }
 

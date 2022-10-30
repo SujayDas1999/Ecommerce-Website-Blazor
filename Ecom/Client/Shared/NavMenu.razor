@@ -1,9 +1,9 @@
 ﻿@inject ICategoryService CategoryService;
-
+@inject NavigationManager NavigationManager;
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Ecom</a>
+        <span class="navbar-brand">My Shop</span>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,17 +11,17 @@
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/">
-                <span class="oi oi-plus" aria-hidden="true"></span> Home
+    <nav class="flex-row">
+        <div class="nav-item px-2">
+            <NavLink class="nav-link" @onclick="GoToHome">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
         @foreach(var item in CategoryService.Categories)
         {
-            <div class="nav-item px-3">
+            <div class="nav-item px-2">
             <NavLink class="nav-link" href="@item.Url">
-                <span class="oi oi-home" aria-hidden="true"></span> @item.Name
+                <span class="oi oi-folder" aria-hidden="true"></span> @item.Name
             </NavLink>
             </div>
         }
@@ -39,6 +39,11 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void GoToHome()
+    {
+        NavigationManager.NavigateTo("");
     }
 
     protected override async Task OnInitializedAsync()

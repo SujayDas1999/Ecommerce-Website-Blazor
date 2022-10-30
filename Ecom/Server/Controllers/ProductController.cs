@@ -2,6 +2,7 @@
 using Ecom.Server.Services;
 using Ecom.Server.Services.Interface;
 using Ecom.Shared;
+using Ecom.Shared.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -41,5 +42,24 @@ namespace Ecom.Server.Controllers
             var productsByCategories = await _productService.GetProductsByCategoryAsync(categoryurl);
             return productsByCategories;
         }
+
+        [HttpGet("search/{searchText}/{page}")]
+        public async Task<ActionResult<ServiceResponse<ProductSearchResultsDto>>> GetSearchedProductAsync(string searchText, int page = 1)
+        {
+            return Ok(await _productService.GetSearchedProducts(searchText, page));
+        }
+
+        [HttpGet("searchsuggestions/{searchText}")]
+        public async Task<ActionResult<ServiceResponse<List<string>>>> GetProductSearchSuggestion(string searchText)
+        {
+            return Ok(await _productService.GetProductSearchSuggestions(searchText));
+        }
+
+        [HttpGet("getFeaturedProducts")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetFeaturedProducts()
+        {
+            return Ok(await _productService.GetFeaturedProducts());
+        }
+
     }
 }
