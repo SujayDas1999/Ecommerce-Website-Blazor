@@ -1,4 +1,5 @@
 ﻿using Ecom.Shared;
+using Ecom.Shared.Dto;
 
 namespace Ecom.Client.Services.CartService
 {
@@ -7,5 +8,8 @@ namespace Ecom.Client.Services.CartService
         event Action OnChange;
         Task AddToCart(Cart cart);
         Task<List<Cart>> GetAllItems();
+        Task<List<CartProductResponseDto>> GetCartProducts();
+        Task RemoveProductFromCart(int prouctId, int productTypeId);
+        Task UpdateQuantity(CartProductResponseDto product);
     }
 }
