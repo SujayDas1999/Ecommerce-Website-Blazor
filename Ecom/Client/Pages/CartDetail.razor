@@ -42,7 +42,7 @@ else
        }
         
        <div class="cart-product-price">
-           Total (@cartProducts.Count) : $@cartProducts.Sum(product => product.Price)
+           Total (@cartProducts.Count) : $@cartProducts.Sum(product => product.Price * product.Quantity)
        </div>
 
     </div>

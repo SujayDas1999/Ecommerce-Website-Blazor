@@ -1,8 +1,11 @@
 ﻿@page "/register"
+@using Ecom.Client.Services.AuthService
+
+@inject IToastService toastService
+@inject IAuthService authService
+@inject NavigationManager UriHelper
 
 <PageTitle>Register</PageTitle>
-
-<h3>Register</h3>
 
 <EditForm Model="user" OnValidSubmit="HandleRegistration">
     <DataAnnotationsValidator />
@@ -17,7 +20,7 @@
         <ValidationMessage For="@(()=> user.Password)"/>
     </div>
      <div class="mb-3">
-        <label for="confirm-password">Password</label>
+        <label for="confirm-password">ConfirmPassword</label>
         <InputText id="confirm-password" @bind-Value="user.ConfirmPassword" type="password" class="form-control"/>
         <ValidationMessage For="@(()=> user.ConfirmPassword)"/>
     </div>
@@ -29,8 +32,17 @@
 @code {
     UserRegister user = new UserRegister();
 
-    void HandleRegistration()
+    async void HandleRegistration()
     {
-        Console.WriteLine($"Registered the user with email {user.Email}");
+        var result = await authService.RegisterUser(user);
+        if(result.Success)
+        {
+            toastService.ShowSuccess("Successfully Registered the user!");
+            UriHelper.NavigateTo("/featuredProduct");
+        }
+        else
+        {
+            toastService.ShowError($"{result.Message}!");
+        }
     }
 }

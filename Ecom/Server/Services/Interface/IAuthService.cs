@@ -6,5 +6,7 @@ namespace Ecom.Server.Services.Interface
     {
         Task<ServiceResponse<int>> Register(string email, string password);
         Task<bool> UserExists(string email);
+        Task<ServiceResponse<string>> Login(string email, string password);
+        Task<ServiceResponse<bool>> ChangePassword(int userId, string password);
     }
 }

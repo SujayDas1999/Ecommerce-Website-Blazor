@@ -1,10 +1,25 @@
-﻿
+﻿@inject ILocalStorageService localStorageService;
+@inject AuthenticationStateProvider AuthenticationStateProvider;
+@inject NavigationManager NavigationManager;
+@inject IToastService ToastService;
+
 <div class="dropdown">
     <button @onclick="ToggleUserMenu" @onfocusout="HideUserMenu" class="btn btn-warning dropwdown-toggle user-button">
         <i class="oi oi-person"></i>
     </button>
     <div class="dropdown-menu dropdown-menu-right @UserMenuCssClass">
-        <a href="register" class="dropdown-item">Register</a>
+        <AuthorizeView>
+            <Authorized>
+                <a class="dropdown-item" @onclick="Logout">Logout</a>
+                <a href="profile" class="dropdown-item">Profile</a>
+            </Authorized>
+            <NotAuthorized>
+                <a href="register" class="dropdown-item">Register</a>
+                <a href="login?returnUrl=@NavigationManager.ToBaseRelativePath(NavigationManager.Uri)" 
+                class="dropdown-item">Login</a>
+            </NotAuthorized>
+        </AuthorizeView>
+        
     </div>
 </div>
 
@@ -24,4 +39,13 @@
         await Task.Delay(200);
         shouldShowUserMenu = false;
     }
+
+    private async Task Logout()
+    {
+        await localStorageService.RemoveItemAsync("user");
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        ToastService.ShowSuccess("User Logged out successfully");
+        NavigationManager.NavigateTo("/login");
+    }
+
 }
